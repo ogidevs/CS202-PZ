@@ -91,6 +91,7 @@ public class AuthorizeApp extends Application {
     }
     private void createLoginTab(TabPane tabPane) {
         Tab loginTab = new Tab("Login");
+        loginTab.setClosable(false);
 
         VBox loginVBox = new VBox(10);
         TextField usernameLogin = new TextField();
@@ -131,6 +132,7 @@ public class AuthorizeApp extends Application {
 
     private void createRegisterTab(TabPane tabPane) {
         Tab registerTab = new Tab("Register");
+        registerTab.setClosable(false);
 
         VBox registerVBox = new VBox(10);
         TextField usernameRegister = new TextField();

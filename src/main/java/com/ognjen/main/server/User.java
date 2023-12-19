@@ -1,7 +1,6 @@
 package com.ognjen.main.server;
 
 import java.io.Serializable;
-import java.net.Socket;
 import java.util.UUID;
 
 public class User implements Serializable {

@@ -51,8 +51,13 @@ public class ClientHandler implements Runnable {
                             out.println(this.admin);
                             connection.close();
                         }else if (receivedObject.toString().startsWith("message")) {
-                            String message = ((String) receivedObject).split(" ")[1] + ((String) receivedObject).split(" ")[2];
-                            broadcastMessage(message);
+                            StringBuilder msg = new StringBuilder();
+                            String[] message = ((String) receivedObject).split(" ");
+                            for (var i = 1; i < message.length; i++) {
+                                msg.append(message[i]);
+                                msg.append(" ");
+                            }
+                            broadcastMessage(msg.toString());
                         }else {
                             if ("terminate".equals(receivedObject)) {
                                 System.out.println("Terminating session");

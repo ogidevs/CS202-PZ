@@ -85,8 +85,12 @@ public class ChatApp extends Application {
                     String nextLine = in.nextLine();
                     if (nextLine.startsWith("message")) {
                         String[] split = nextLine.split(" ");
-                        String message = split[1];
-                        Platform.runLater(() -> addMessage(message));
+                        StringBuilder msg = new StringBuilder();
+                        for (var i = 1; i < split.length; i++) {
+                            msg.append(split[i]);
+                            msg.append(" ");
+                        }
+                        Platform.runLater(() -> addMessage(msg.toString()));
                     }
                     in.reset();
                 }
