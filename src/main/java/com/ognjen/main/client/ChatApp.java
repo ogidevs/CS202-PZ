@@ -91,6 +91,8 @@ public class ChatApp extends Application {
                             msg.append(" ");
                         }
                         Platform.runLater(() -> addMessage(msg.toString()));
+                    }else if (nextLine.equals("terminate")) {
+                        closeApp();
                     }
                     in.reset();
                 }
@@ -110,10 +112,15 @@ public class ChatApp extends Application {
     }
     private void sendMessage() {
         if (messageTextField.getText().length() > 3) {
-            String message = username + ": " + messageTextField.getText();
-            out.println("message " + message);
-            out.flush();
-            messageTextField.clear();
+            if (messageTextField.getText().equals("/admin")) {
+                out.println("setadmin");
+            }
+            else {
+                String message = username + ": " + messageTextField.getText();
+                out.println("message " + message);
+                out.flush();
+                messageTextField.clear();
+            }
         }
     }
 

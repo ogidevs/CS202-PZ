@@ -77,16 +77,15 @@ public class UserTable {
         }
         return null;
     }
-    public static boolean setAdmin(Connection connection, String username, String password) {
-        String sql = "SELECT 1 FROM user WHERE username=? and password=?";
+    public static boolean setAdmin(Connection connection, String username) {
+        String sql = "SELECT 1 FROM user WHERE username=?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
-            statement.setString(2, encodeBase64(password));
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return setAdminVerified(connection, username, password);
+                    return setAdminVerified(connection, username);
                 }
             }catch (Exception e) {
                 return false;
@@ -96,8 +95,8 @@ public class UserTable {
         }
         return false;
     }
-    public static boolean setAdminVerified(Connection connection, String username, String password) {
-        String insertDataSQL = "UPDATE `user` SET admin = 1 WHERE username=\"" + username + "\" and password=\"" + encodeBase64(password) + "\";";
+    public static boolean setAdminVerified(Connection connection, String username) {
+        String insertDataSQL = "UPDATE `user` SET admin = 1 WHERE username=\"" + username + "\";";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertDataSQL)) {
             preparedStatement.execute();

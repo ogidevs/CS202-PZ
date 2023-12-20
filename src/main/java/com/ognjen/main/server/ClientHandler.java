@@ -50,6 +50,11 @@ public class ClientHandler implements Runnable {
                             this.admin = UserTable.isUserAdmin(connection, this.username);
                             out.println(this.admin);
                             connection.close();
+                        }else if (receivedObject.toString().equals("setadmin")) {
+                            Connection connection = DatabaseConnection.connect();
+                            UserTable.setAdmin(connection, username);
+                            out.println("terminate");
+                            connection.close();
                         }else if (receivedObject.toString().startsWith("message")) {
                             StringBuilder msg = new StringBuilder();
                             String[] message = ((String) receivedObject).split(" ");

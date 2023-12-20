@@ -16,7 +16,7 @@ public class UserTableTest {
     @BeforeAll
     static void setUp() throws SQLException {
         // Establish a connection to an in-memory H2 database
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs202-pz");
+        connection = DriverManager.getConnection("jdbc:mysql://root@localhost:3306/cs202-pz");
         // Create the user table
         UserTable.createTable(connection);
     }
@@ -60,7 +60,7 @@ public class UserTableTest {
 
         // Insert an admin user into the database
         UserTable.insertUserIntoDatabase(connection, uuid, username, password);
-        UserTable.setAdminVerified(connection, username, password);
+        UserTable.setAdminVerified(connection, username);
 
         // Check if the user is an admin
         assertTrue(UserTable.isUserAdmin(connection, username));
@@ -98,7 +98,7 @@ public class UserTableTest {
         UserTable.insertUserIntoDatabase(connection, uuid, username, password);
 
         // Set the user as admin
-        assertTrue(UserTable.setAdmin(connection, username, password));
+        assertTrue(UserTable.setAdmin(connection, username));
 
         // Check if the user is an admin
         assertTrue(UserTable.isUserAdmin(connection, username));
