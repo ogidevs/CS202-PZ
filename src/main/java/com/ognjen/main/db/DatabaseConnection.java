@@ -24,7 +24,6 @@ public class DatabaseConnection {
             throw new RuntimeException("Error connecting to the database", e);
         }
     }
-
     public static void close(Connection connection) {
         try {
             if (connection != null) {

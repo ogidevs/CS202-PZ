@@ -36,7 +36,7 @@ public class Server implements Serializable, Runnable {
 //  This connection is kept alive until the client leaves the room.
     @Override
     public void run() {
-        try (ServerSocket serverSocket = this.getServerSocket()) {
+        try {
             System.out.println(this.name + " is listening on port " + this.port);
 
             while (true) {
@@ -48,6 +48,17 @@ public class Server implements Serializable, Runnable {
         } catch (IOException e) {
 //          handle losing the connection.
             System.out.println(this.getName() + ": Connection lost to one client!");
+            e.printStackTrace();
+        }
+    }
+
+    // Method to stop the server and release resources
+    public void stopServer() {
+        try {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
