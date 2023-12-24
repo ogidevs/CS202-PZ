@@ -1,13 +1,12 @@
 package com.ognjen.main.db;
 
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 // Handling the database connection
-
+// Change to fit database needs...
 public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/cs202-pz";
     private static final String USERNAME = "root";
@@ -37,10 +36,6 @@ public class DatabaseConnection {
     public static void main(String[] args) throws IOException, SQLException {
         Connection connection = connect();
         BasicSetup.setupDataBase(connection);
-//        ServerHub.insertServerIntoDatabase(connection, new Server(1, "localhost", 12345, "Server #1"));
-//        ServerHub.insertServerIntoDatabase(connection, new Server(2, "localhost", 12346, "Server #2"));
-//        ServerHub.insertServerIntoDatabase(connection, new Server(3, "localhost", 12347, "Server #3"));
-//        ServerHub.insertServerIntoDatabase(connection, new Server(4, "localhost", 12348, "Server #4"));
         close(connection);
     }
 }

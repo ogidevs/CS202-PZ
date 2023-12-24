@@ -35,29 +35,26 @@ public class ServerTable {
         }
     }
     public static List<Server> getAllEntriesFromServerTable(Connection connection) {
-        try (connection) {
-            List<Server> l = new ArrayList<>();
-            String sql = "SELECT * FROM server";
+        List<Server> l = new ArrayList<>();
+        String sql = "SELECT * FROM server";
 
-            try (PreparedStatement statement = connection.prepareStatement(sql);
-                 ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
 
-                // Loop through the result set
-                while (resultSet.next()) {
-                    // Retrieve data from each row
-                    int id = resultSet.getInt("id");
-                    String host = resultSet.getString("hostname");
-                    int port = resultSet.getInt("port");
-                    String serverName = resultSet.getString("name");
-                    l.add(new Server(id, host, port, serverName));
-                }
-                return l;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            // Loop through the result set
+            while (resultSet.next()) {
+                // Retrieve data from each row
+                int id = resultSet.getInt("id");
+                String host = resultSet.getString("hostname");
+                int port = resultSet.getInt("port");
+                String serverName = resultSet.getString("name");
+                l.add(new Server(id, host, port, serverName));
             }
+            return l;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }

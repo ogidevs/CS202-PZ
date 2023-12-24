@@ -37,7 +37,12 @@ public class ServerHub {
             Connection connection = DatabaseConnection.connect();
             BasicSetup.setupDataBase(connection);
             serverList = ServerTable.getAllEntriesFromServerTable(connection);
-            assert serverList != null;
+            if (serverList == null || serverList.size() == 0) {
+                ServerTable.insertServerIntoDatabase(connection, new Server(1, "localhost", 12345, "Server #1"));
+                ServerTable.insertServerIntoDatabase(connection, new Server(2, "localhost", 12346, "Server #2"));
+                ServerTable.insertServerIntoDatabase(connection, new Server(3, "localhost", 12347, "Server #3"));
+                ServerTable.insertServerIntoDatabase(connection, new Server(4, "localhost", 12348, "Server #4"));
+            }
             for (Server server : serverList) {
                 new Thread(server).start();
             }
